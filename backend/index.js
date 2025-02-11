@@ -1,11 +1,11 @@
 import express from 'express';
-import userRouter from './src/routes/user_info.routes.js';
 import { errorHandler } from "./src/middlewares/error.middleware.js";
+import userInfoController from './src/controllers/user_info.controller.js';
 
 let app = express();
 let port = process.env.PORT || 3000;
 
-app.use("/users", userRouter);
+app.use("/users", userInfoController);
 app.use(errorHandler);
 app.listen(port);
 console.log('Started on: ' + port);
