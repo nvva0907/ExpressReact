@@ -1,8 +1,8 @@
 import express from 'express';
-import { getAllPagination } from "../controllers/user_info.controller.js";
+import { getAll } from "../controllers/user_info.controller.js";
 
 const userRouter = express.Router();
 
-userRouter.get("/list", getAllPagination);
+userRouter.get("/list", getAll);
 
 export default userRouter;

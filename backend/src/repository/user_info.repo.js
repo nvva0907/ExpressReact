@@ -1,10 +1,11 @@
-import User from "../models/user_info.model.js"; // Model Sequelize
+import { createPagination } from "../helpers/pagination_response.helper.js";
+import User from "../models/user_info.model.js";
 import { Op } from "sequelize";
-export async function getUsersPaginated(page, pageSize, searchInput) {
+export async function getUsersPaginated(page = 1, pageSize = 10, searchInput) {
     const offset = (page - 1) * pageSize;
     const search = `%${searchInput}%`;
-
-    const { count, rows } = await User.findAndCountAll({
+    
+    const { count , rows } = await User.findAndCountAll({
         where: {
             deleted: false,
 
@@ -18,11 +19,5 @@ export async function getUsersPaginated(page, pageSize, searchInput) {
         limit: pageSize,
         offset: offset,
     });
-
-    return {
-        data: rows,
-        totalElements: count,
-        totalPages: Math.ceil(count / pageSize),
-        currentPage: page,
-    };
+    return createPagination(rows, count, pageSize, page)
 }

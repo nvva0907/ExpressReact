@@ -1,11 +1,17 @@
-import { getUsersPaginated } from "../repository/user_info.repo.js";
+import { baseController } from "../helpers/base_controller.helper.js";
+import { successRes } from "../helpers/response.helper.js";
+import { getAllService } from "../services/user_info.service.js";
 
-export async function getAllPagination(req, res) {
-    try {
-        const { page = 1, pageSize = 10, search = "" } = req.query;
-        const result = await getUsersPaginated(parseInt(page), parseInt(pageSize), search);
-        res.json(result);
-    } catch (error) {
-        res.status(500).json({ error: error.message });
-    }
-}
+/**
+ * @name {UserInfoController}
+ * @description {CRUD với user_info}
+ */
+export const getAll = baseController(async (req, res) => {
+  const { page = 1, pageSize = 10, search = "" } = req.query;
+  const result = await getAllService(
+    parseInt(page),
+    parseInt(pageSize),
+    search
+  );
+  successRes(res, result);
+});

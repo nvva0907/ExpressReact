@@ -74,8 +74,8 @@ const User = sequelize.define("User", {
     allowNull: true,
   },
 }, {
-  tableName: "user_info", // ✅ Đặt tên bảng trùng với DDL
-  timestamps: false, // ✅ Vì đã có trường `created_time` & `modified_time`
+  tableName: "user_info",
+  timestamps: false,
 });
 
 export default User;
